@@ -9,15 +9,6 @@ interface MyProps { };
 export const HeaderNav: React.FC<MyProps> = React.memo(({ }) => {
 	const router = useRouter();
 
-	const handleCreateTicket = React.useCallback(async () => {
-		try {
-
-
-			router.refresh();
-		} catch (err) {
-
-		}
-	}, []);
 
 	return (
 		<nav className='flex w-full justify-between'>
@@ -28,11 +19,11 @@ export const HeaderNav: React.FC<MyProps> = React.memo(({ }) => {
 				</SignedOut>
 				<SignedIn>
 					<button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-						onClick={handleCreateTicket}>Add Ticket</button>
+						onClick={() => null}>Add Ticket</button>
 					<UserButton />
 				</SignedIn>
 			</div>
-		</nav>
+		</nav >
 	);
 });
 

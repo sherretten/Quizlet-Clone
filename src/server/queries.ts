@@ -28,3 +28,12 @@ export async function deleteTicket(id: number) {
 
   redirect("/");
 }
+
+export async function getTicket(id: string) {
+  const user = await auth();
+
+  if (!user.userId) throw new Error("Unauthorized");
+
+  const ticket = await db.query.tickets.findFirst();
+  return ticket;
+}
