@@ -24,7 +24,7 @@ export const tickets = createTable(
     id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
     title: varchar("title", { length: 256 }).notNull(),
     desc: varchar("desc", { length: 512 }),
-    userId: varchar("userId", { length: 128 }).notNull(),
+    // userId: varchar("userId", { length: 128 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),

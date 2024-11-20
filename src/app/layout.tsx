@@ -15,13 +15,13 @@ export default function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
-		<ClerkProvider>
-			<html lang="en" className={`${GeistSans.variable}`}>
-				<body>
-					<HeaderNav />
-					{children}
-				</body>
-			</html>
-		</ClerkProvider>
+		// <ClerkProvider>
+		<html lang="en" className={`${GeistSans.variable}`}>
+			<body>
+				<HeaderNav />
+				{children}
+			</body>
+		</html>
+		// </ClerkProvider >
 	);
 }
