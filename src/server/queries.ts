@@ -37,3 +37,17 @@ export async function getTicket(id: number) {
   });
   return ticket;
 }
+
+type Ticket = typeof tickets.$inferInsert;
+
+export async function createTicket(ticket: Ticket) {
+  const newTicket = await db.insert(tickets).values(ticket).returning();
+  return newTicket;
+}
+
+export async function updateTicket(ticket: Ticket) {
+  await db
+    .update(tickets)
+    .set({ title: ticket.title, desc: ticket.desc })
+    .where(eq(tickets.id, +ticket.id));
+}
