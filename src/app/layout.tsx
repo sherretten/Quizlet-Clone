@@ -6,8 +6,8 @@ import { type Metadata } from "next";
 import { HeaderNav } from './_components/HeaderNav';
 
 export const metadata: Metadata = {
-	title: "Jira Clone",
-	description: "Jira clone to learn how to build with next and vercel",
+	title: "Shop Scheduler",
+	description: "An app that helps bike shops schedule mechanics",
 	icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

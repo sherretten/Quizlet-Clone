@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     url: env.POSTGRES_URL,
   },
-  tablesFilter: ["mock-jira_*"],
+  tablesFilter: ["shop-scheduler_*"],
 } satisfies Config;

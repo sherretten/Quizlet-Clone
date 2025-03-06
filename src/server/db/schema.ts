@@ -8,6 +8,10 @@ import {
   pgTableCreator,
   timestamp,
   varchar,
+  decimal,
+  date,
+  pgEnum,
+  time,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -16,7 +20,13 @@ import {
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `mock-jira_${name}`);
+export const createTable = pgTableCreator((name) => `shop-scheduler_${name}`);
+
+export const orderStatusEnum = pgEnum("status", [
+  "New",
+  "In Progress",
+  "Completed",
+]);
 
 export const tickets = createTable(
   "ticket",
@@ -36,3 +46,29 @@ export const tickets = createTable(
     nameIndex: index("name_idx").on(example.title),
   }),
 );
+
+export const mechanics = createTable("mechanic", {
+  id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
+  name: varchar("name", { length: 256 }).notNull(),
+  hoursWorked: decimal("hours_worked", { precision: 2 }).default("0.0"),
+  maxHours: integer("max_hours").default(50),
+});
+
+export const serviceOrders = createTable("orders", {
+  orderId: varchar("id").primaryKey().notNull(),
+  customerId: varchar("customer_id").notNull(),
+  customerPhoneNumber: varchar("customer_phone_number"),
+  customerName: varchar("customer_name"),
+  mechanicId: integer("mechanic_id").references(() => mechanics.id),
+  duration: decimal("duration", { precision: 2 }).notNull(),
+  startTime: date("start"),
+  status: orderStatusEnum("status").default("New"),
+});
+
+export const shop = createTable("shop", {
+  shopId: integer("id").primaryKey().generatedByDefaultAsIdentity(),
+  open: time("open"),
+  close: time("close"),
+  daysOpen: varchar("daysOpen").array(),
+  holidays: date("holidays").array(),
+});
