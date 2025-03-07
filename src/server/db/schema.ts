@@ -28,30 +28,12 @@ export const orderStatusEnum = pgEnum("status", [
   "Completed",
 ]);
 
-export const tickets = createTable(
-  "ticket",
-  {
-    id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
-    title: varchar("title", { length: 256 }).notNull(),
-    desc: varchar("desc", { length: 512 }),
-    // userId: varchar("userId", { length: 128 }).notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date(),
-    ),
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.title),
-  }),
-);
-
 export const mechanics = createTable("mechanic", {
-  id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
+  id: integer("id").primaryKey().generatedByDefaultAsIdentity().notNull(),
   name: varchar("name", { length: 256 }).notNull(),
   hoursWorked: decimal("hours_worked", { precision: 2 }).default("0.0"),
   maxHours: integer("max_hours").default(50),
+  shopId: integer("shop_id").references(() => shop.shopId),
 });
 
 export const serviceOrders = createTable("orders", {
@@ -69,6 +51,6 @@ export const shop = createTable("shop", {
   shopId: integer("id").primaryKey().generatedByDefaultAsIdentity(),
   open: time("open"),
   close: time("close"),
-  daysOpen: varchar("daysOpen").array(),
+  daysOpen: varchar("days_open").array(),
   holidays: date("holidays").array(),
 });
